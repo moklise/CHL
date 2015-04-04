@@ -15,11 +15,11 @@ using namespace std;
 struct STUDENT{
     char name[20];
     char address[100];
-    char subject[3];
+    char subject[3][10];
     int roll_number, score[3];
 }s;
 
-int get_average( int score);
+int get_average( int *score);
 int pass(int avg);
 
 int main()
@@ -33,10 +33,13 @@ int main()
         
         cout << "학생의 이름, 학번, 주소를 입력해라 : \n"
         << "**그만하고 싶으면 quit 입력** \n\n";
-        cin >> s.name >> s.roll_number >> s.address;
         
-        if( !strcmp (s.name , "quit") )
-            break;
+        cin >> s.name;
+        
+        if( !strcmp (s.name , "quit") ){ break; } // 여기
+        
+        cin >> s.roll_number
+        >> s.address;
         
         cout << s.name <<"  "<< s.roll_number << "  " << s.address;
         
@@ -44,27 +47,30 @@ int main()
         for (i=0; i<3; i++)
         {
             cout << i+1 <<"번째 과목의 과목명과 점수는? \n"<<endl;
-            cin >> s.subject[i] >> s.score[i];
+            cin >> s.subject[i]
+            >> s.score[i];
             
         }
         
-        avg = get_average(s.score[i]);
+        avg = get_average(s.score); // 여기
         
-        cout << "평균은 " << avg <<"입니다. \n";
+        cout << "평균은 " << avg << "입니다. \n";
         
         passfail = pass(avg);
-        if (passfail == 1)
-            cout << "패스입니다\n";
         
-        else
+        if (passfail == 1){
+            cout << "패스입니다\n";
+        }else{
             cout << "낙제입니다.\n";
+        }
     }
+    
     return 0;
 }
 
-int get_average(int score )
+int get_average(int *score ) // 여기
 {
-    return (s.score[0]+ s.score[1] + s.score[2] ) /3;
+    return ( score[0]+ score[1] + score[2] ) /3; // 여기
 }
 
 
@@ -74,7 +80,6 @@ int pass(int avg){
     else
         return 0;
 }
-
 
 
 
